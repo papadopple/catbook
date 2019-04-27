@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Nav, NavItem, NavLink, Navbar, NavbarBrand} from 'reactstrap';
 import UploadButton from './upload-button';
 
+console.log("APP");
 class App extends Component{
 	state = {
 		loading:false,
@@ -16,11 +17,12 @@ class App extends Component{
 	}
 
 	fetchCat = (id) => {
+		console.log("A1")
 		return new Promise(async(resolve) => {
 			//fetch image from server
 			const res= await fetch(`/api/cats/${id}`);
 			const catBlob = await res.blob();
-
+			console.log("A");
 			//create object URL to display in <img> element
 			const url = URL.createObjectURL(catBlob);
 
@@ -32,10 +34,14 @@ class App extends Component{
 	};
 
 	fetchCats = () =>{
+		console.log("B1")
 		this.setState({cats:[]}, async()=>{
 			const res = await fetch('/api/cats');
 			const {cats} = await res.json();
+			console.log("B2");
+			console.log(cats);
 			for(const cat of cats){
+			
 				await this.fetchCat(cat);
 			}
 		});
@@ -44,6 +50,8 @@ class App extends Component{
 	handleUpload = async(event) =>{
 		const file = event.currentTarget.files[0];
 		const formData = new FormData();
+		
+		console.log("C");
 
 		//show loading spinner
 		this.setState({loading:true, preview:null, message:''});
@@ -88,6 +96,7 @@ class App extends Component{
 		this.setState({loading:false});
 	};
 	render() {
+		console.log("D");
 		const { loading, success, message, preview, cats } = this.state;
 		return (
 			<>

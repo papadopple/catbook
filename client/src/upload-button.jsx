@@ -1,9 +1,10 @@
 import React, {PureComponent} from 'react';
 import {Button} from 'reactstrap';
 
+console.log("UPLOAD BUTTON 322");
 class UploadButton extends PureComponent{
 	fileInputRef = React.createRef();
-
+	
 	handleClick = () => {
 		this.fileInputRef.current.click();
 	}
@@ -18,7 +19,7 @@ class UploadButton extends PureComponent{
 					accept="image/*"
 					style={{display:'none'}}
 					type="file"
-					onChange={this.props.Upload}
+					onChange={this.props.onUpload}
 				/>
 				<Button
 					color="primary"
