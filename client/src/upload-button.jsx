@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
 import {Button} from 'reactstrap';
 
-console.log("UPLOAD BUTTON 322");
 class UploadButton extends PureComponent{
 	fileInputRef = React.createRef();
 	

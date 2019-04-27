@@ -34,8 +34,9 @@ if (!fs.existsSync(uploadPath)) {
 const upload = multer({ dest: 'uploads/' });
 
 // handle post requests with images to the /upload path
-app.post('/api/upload', upload.single('imgage'), async(req, res)=>{
+app.post('/api/upload', upload.single('image'), async(req, res)=>{
 	try{
+		
 		if(!req.file){
 			res.sendStatus(500);
 			return;
@@ -46,7 +47,7 @@ app.post('/api/upload', upload.single('imgage'), async(req, res)=>{
 		const filePath = req.file.path;
 
 		//send image to gcloud for label detect
-		const results = await visionClient.labelDetection(filepath);
+		const results = await visionClient.labelDetection(filePath);
 
 		//get label data from google response
 		const labels = results[0].labelAnnotations.map(x => x.description.toLowerCase());
@@ -59,12 +60,11 @@ app.post('/api/upload', upload.single('imgage'), async(req, res)=>{
 		}
 		else{
 			//remove non cat
-			await unlinkAsync(filepath);
+			await unlinkAsync(filePath);
 			res.status(400).json({message : 'No Cat!'});
 		}
 	}
 	catch(err){
-		console.log(err);
 		res.sendStatus(500);
 	}
 });
