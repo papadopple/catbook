@@ -14,7 +14,7 @@ class UploadButton extends PureComponent{
 		return(
 			<div>
 				<input
-					ref={this.UNSAFE_componentWillMount.fileInputRef}
+					ref={this.fileInputRef}
 					accept="image/*"
 					style={{display:'none'}}
 					type="file"
